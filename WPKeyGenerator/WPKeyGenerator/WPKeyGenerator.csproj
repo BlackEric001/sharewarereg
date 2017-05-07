@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="KeyGenerarorAsymmetric.cs" />
+    <Compile Include="KeyGeneratorAsymmetric.cs" />
     <Compile Include="KeyGenerator.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

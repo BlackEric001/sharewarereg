@@ -34,6 +34,27 @@ namespace WPKeyGenerator
         {
             return name + Environment.NewLine + "================================================================================" + Environment.NewLine + key;
         }
+        
+        /// <summary>
+        /// This method must be overrided
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public virtual string generateKey(string name)
+        {
+            return String.Empty;
+        }
+
+        /// <summary>
+        /// This method must be overrided
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public virtual Boolean validateKey(string name, string key)
+        {
+            return false;
+        }
        
     }
 }

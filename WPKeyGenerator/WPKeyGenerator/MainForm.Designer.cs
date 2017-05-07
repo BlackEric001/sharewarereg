@@ -42,6 +42,7 @@
             this.btn_CopyToClipboard = new System.Windows.Forms.Button();
             this.btn_SaveToFile = new System.Windows.Forms.Button();
             this.btn_GenerateKey = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             this.SuspendLayout();
@@ -74,15 +75,17 @@
             // textBoxKey
             // 
             this.textBoxKey.Location = new System.Drawing.Point(20, 116);
+            this.textBoxKey.Multiline = true;
             this.textBoxKey.Name = "textBoxKey";
-            this.textBoxKey.Size = new System.Drawing.Size(416, 20);
+            this.textBoxKey.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxKey.Size = new System.Drawing.Size(416, 70);
             this.textBoxKey.TabIndex = 3;
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 190);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 240);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(444, 22);
             this.statusStrip1.TabIndex = 8;
@@ -122,7 +125,7 @@
             this.pnlButtons.Controls.Add(this.btn_CopyToClipboard);
             this.pnlButtons.Controls.Add(this.btn_SaveToFile);
             this.pnlButtons.Controls.Add(this.btn_GenerateKey);
-            this.pnlButtons.Location = new System.Drawing.Point(0, 142);
+            this.pnlButtons.Location = new System.Drawing.Point(0, 192);
             this.pnlButtons.Name = "pnlButtons";
             this.pnlButtons.Size = new System.Drawing.Size(444, 45);
             this.pnlButtons.TabIndex = 11;
@@ -167,11 +170,15 @@
             this.btn_GenerateKey.UseVisualStyleBackColor = true;
             this.btn_GenerateKey.Click += new System.EventHandler(this.btn_GenerateKey_Click);
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(444, 212);
+            this.ClientSize = new System.Drawing.Size(444, 262);
             this.Controls.Add(this.pnlButtons);
             this.Controls.Add(this.lbKeyType);
             this.Controls.Add(this.comboBoxKeyType);
@@ -182,11 +189,11 @@
             this.Controls.Add(this.lbName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(460, 250);
+            this.MaximumSize = new System.Drawing.Size(460, 300);
             this.MinimizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Test Key Generator 0.1 alpha";
+            this.Text = "Test Key Generator 0.1 beta";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -212,6 +219,7 @@
         private System.Windows.Forms.Button btn_CopyToClipboard;
         private System.Windows.Forms.Button btn_SaveToFile;
         private System.Windows.Forms.Button btn_GenerateKey;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

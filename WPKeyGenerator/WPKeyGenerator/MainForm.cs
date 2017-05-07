@@ -8,10 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.IO;
+
 namespace WPKeyGenerator
 {
     public partial class MainForm : Form
     {
+        const string ASYMMETRIC = "Asymmetric";
+
         public MainForm()
         {
             InitializeComponent();
@@ -29,7 +33,7 @@ namespace WPKeyGenerator
                 }
                 else
                 {
-                    textBoxKey.Text = KeyGeneratorHash.generateKey(textBoxName.Text.Trim());
+                    textBoxKey.Text = keyGen.generateKey(textBoxName.Text.Trim());
                     statusLabel.Text = "Ключ сгенерирован";
                 }
             }
@@ -51,7 +55,7 @@ namespace WPKeyGenerator
                     }
                     else
                     {
-                        if (KeyGeneratorHash.validateKey(textBoxName.Text.Trim(), textBoxKey.Text.Trim()))
+                        if (keyGen.validateKey(textBoxName.Text.Trim(), textBoxKey.Text.Trim()))
                         {
                             MessageBox.Show("Ключ валиден!!!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
@@ -77,7 +81,7 @@ namespace WPKeyGenerator
 
                 if (saveFileDialog1.FileName != String.Empty)
                 {
-                    System.IO.File.WriteAllText(saveFileDialog1.FileName, KeyGeneratorHash.getDataForExport(name, key));
+                    System.IO.File.WriteAllText(saveFileDialog1.FileName, KeyGenerator.getDataForExport(name, key));
                     statusLabel.Text = "Ключ сохранен";
                 }
             }
@@ -89,7 +93,7 @@ namespace WPKeyGenerator
             string key = textBoxKey.Text.Trim();
 
             if(validData(name, key)){
-                Clipboard.SetText(KeyGeneratorHash.getDataForExport(name, key));
+                Clipboard.SetText(KeyGenerator.getDataForExport(name, key));
                 statusLabel.Text = "Данные скопированы в буфер обмена";
             }
         }
@@ -111,7 +115,7 @@ namespace WPKeyGenerator
                     }
                     else
                     {
-                        if (!KeyGeneratorHash.validateKey(name, key))
+                        if (!keyGen.validateKey(name, key))
                         {
                             MessageBox.Show("Не верный ключ!!! Экспорт запрещен!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Error); ;
                         }
@@ -145,8 +149,38 @@ namespace WPKeyGenerator
 
         private void comboBoxKeyType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            pnlButtons.Enabled = comboBoxKeyType.Text != String.Empty;
-            statusLabel.Text = "Готово";
+            pnlButtons.Enabled = false;
+
+            if (comboBoxKeyType.Text == ASYMMETRIC)
+            {
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        keyGen = new KeyGeneratorAsymmetric(File.ReadAllText(openFileDialog1.FileName));
+
+                        if ((keyGen as KeyGeneratorAsymmetric).publicOnly)
+                            statusLabel.Text = "Загружен только публичный ключ! Генерация ключей не возможна";
+                        else
+                        {
+                            statusLabel.Text = "Готово";
+                            pnlButtons.Enabled = true;
+                        }
+
+                    }catch(Exception ex)
+                    {
+                        statusLabel.Text = String.Format("Не верный ключ: {0}", ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                pnlButtons.Enabled = comboBoxKeyType.Text != String.Empty;
+                keyGen = new KeyGeneratorHash();
+                statusLabel.Text = "Готово";
+            }
         }
+
+        KeyGenerator keyGen;
     }
 }

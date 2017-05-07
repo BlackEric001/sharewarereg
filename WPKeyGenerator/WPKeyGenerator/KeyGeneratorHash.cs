@@ -10,7 +10,7 @@ namespace WPKeyGenerator
 {
     class KeyGeneratorHash: KeyGenerator
     {
-        public static string generateKey(string name)
+        public override string generateKey(string name)
         {
             name += "$" + name;
 
@@ -28,7 +28,7 @@ namespace WPKeyGenerator
             return hashCalc;
         }
 
-        public static Boolean validateKey(string name, string key)
+        public override Boolean validateKey(string name, string key)
         {
             return (name != String.Empty) && (key != String.Empty) && (key == generateKey(name));
         }
