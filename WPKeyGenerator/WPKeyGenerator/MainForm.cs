@@ -15,42 +15,51 @@ namespace WPKeyGenerator
         public MainForm()
         {
             InitializeComponent();
+            pnlButtons.Enabled = false;
+            statusLabel.Text = "Выберите тип ключа для продолжения работы";
         }
 
         private void btn_GenerateKey_Click(object sender, EventArgs e)
         {
-            if (textBoxName.Text.Trim() == String.Empty)
+            if (keyTypeSelected())
             {
-                MessageBox.Show("Поле Name пустое. Нужно указать имя клиента для генерации ключа!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                textBoxKey.Text = KeyGenerator.generateKey(textBoxName.Text.Trim());
+                if (textBoxName.Text.Trim() == String.Empty)
+                {
+                    MessageBox.Show("Поле Name пустое. Нужно указать имя клиента для генерации ключа!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    textBoxKey.Text = KeyGeneratorHash.generateKey(textBoxName.Text.Trim());
+                    statusLabel.Text = "Ключ сгенерирован";
+                }
             }
         }
 
         private void btn_ValidateKey_Click(object sender, EventArgs e)
         {
-            if (textBoxName.Text.Trim() == String.Empty)
+            if (keyTypeSelected())
             {
-                MessageBox.Show("Поле Name пустое. Нужно указать имя клиента для валидации ключа!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                if (textBoxKey.Text.Trim() == String.Empty)
+                if (textBoxName.Text.Trim() == String.Empty)
                 {
-                    MessageBox.Show("Поле Key пустое. Нужно указать ключ для его проверки!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Поле Name пустое. Нужно указать имя клиента для валидации ключа!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                   if(KeyGenerator.validateKey(textBoxName.Text.Trim(), textBoxKey.Text.Trim()))
-                   {
-                       MessageBox.Show("Ключ валиден!!!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Information); 
-                   }
-                   else
-                   {
-                       MessageBox.Show("Не верный ключ!!!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Error); 
-                   }
+                    if (textBoxKey.Text.Trim() == String.Empty)
+                    {
+                        MessageBox.Show("Поле Key пустое. Нужно указать ключ для его проверки!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        if (KeyGeneratorHash.validateKey(textBoxName.Text.Trim(), textBoxKey.Text.Trim()))
+                        {
+                            MessageBox.Show("Ключ валиден!!!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Не верный ключ!!!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
             }
         }
@@ -68,7 +77,8 @@ namespace WPKeyGenerator
 
                 if (saveFileDialog1.FileName != String.Empty)
                 {
-                    System.IO.File.WriteAllText(saveFileDialog1.FileName, KeyGenerator.getDataForExport(name, key));
+                    System.IO.File.WriteAllText(saveFileDialog1.FileName, KeyGeneratorHash.getDataForExport(name, key));
+                    statusLabel.Text = "Ключ сохранен";
                 }
             }
         }
@@ -79,37 +89,64 @@ namespace WPKeyGenerator
             string key = textBoxKey.Text.Trim();
 
             if(validData(name, key)){
-                Clipboard.SetText(KeyGenerator.getDataForExport(name, key));
+                Clipboard.SetText(KeyGeneratorHash.getDataForExport(name, key));
+                statusLabel.Text = "Данные скопированы в буфер обмена";
             }
         }
 
         private Boolean validData(string name, string key)
         {
-
             Boolean res = false;
-            if (textBoxName.Text.Trim() == String.Empty)
+            if (keyTypeSelected())
             {
-                MessageBox.Show("Поле Name пустое. Нужно указать имя клиента для экспорта ключа!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                if (textBoxKey.Text.Trim() == String.Empty)
+                if (textBoxName.Text.Trim() == String.Empty)
                 {
-                    MessageBox.Show("Поле Key пустое. Нужно указать ключ  для его экспорта!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Поле Name пустое. Нужно указать имя клиента для экспорта ключа!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    if (!KeyGenerator.validateKey(name, key))
+                    if (textBoxKey.Text.Trim() == String.Empty)
                     {
-                        MessageBox.Show("Не верный ключ!!! Экспорт запрещен!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                        MessageBox.Show("Поле Key пустое. Нужно указать ключ  для его экспорта!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else
                     {
-                        res = true;
+                        if (!KeyGeneratorHash.validateKey(name, key))
+                        {
+                            MessageBox.Show("Не верный ключ!!! Экспорт запрещен!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                        }
+                        else
+                        {
+                            res = true;
+                        }
                     }
                 }
             }
             return res;
+        }
+
+        private Boolean keyTypeSelected()
+        {
+            if (comboBoxKeyType.Text == String.Empty)
+            {
+                MessageBox.Show("Укажите тип ключа!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxKeyType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pnlButtons.Enabled = comboBoxKeyType.Text != String.Empty;
+            statusLabel.Text = "Готово";
         }
     }
 }
