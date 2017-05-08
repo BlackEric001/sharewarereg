@@ -8,6 +8,9 @@ using System.Security.Cryptography;
 
 namespace WPKeyGenerator
 {
+    /// <summary>
+    /// https://msdn.microsoft.com/en-us/library/9tsc5d0z(v=vs.110).aspx
+    /// </summary>
     class KeyGeneratorAsymmetric: KeyGenerator
     {
 
@@ -33,7 +36,11 @@ namespace WPKeyGenerator
 
         public override Boolean validateKey(string name, string key)
         {
-            return (name != String.Empty) && (key != String.Empty) && (key == generateKey(name));
+            //return (name != String.Empty) && (key != String.Empty) && (key == generateKey(name));
+            ASCIIEncoding byteConverter = new ASCIIEncoding();
+            byte[] originalData = byteConverter.GetBytes(name);
+
+            return rsp.VerifyData(originalData, new SHA1CryptoServiceProvider(), StringToByteArray(key));
         }
 
         RSACryptoServiceProvider rsp;
