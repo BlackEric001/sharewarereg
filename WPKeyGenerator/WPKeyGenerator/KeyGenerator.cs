@@ -29,7 +29,7 @@ namespace WPKeyGenerator
         /// </summary>
         /// <param name="hex"></param>
         /// <returns></returns>
-        public static byte[] StringToByteArray(string hex)
+        public static byte[] HexStringToBytes(string hex)
         {
             if (hex.Length % 2 == 1)
                 throw new Exception("The binary key cannot have an odd number of digits");

@@ -29,18 +29,21 @@ namespace WPKeyGenerator
 
         public override string generateKey(string name)
         {
-            ASCIIEncoding byteConverter = new ASCIIEncoding();
-            byte[] originalData = byteConverter.GetBytes(name);
-            return HexStringFromBytes(rsp.SignData(originalData, new SHA1CryptoServiceProvider()));
+            return HexStringFromBytes(rsp.SignData(stringToBytes(name), new SHA1CryptoServiceProvider()));
         }
 
         public override Boolean validateKey(string name, string key)
         {
             //return (name != String.Empty) && (key != String.Empty) && (key == generateKey(name));
+
+            return rsp.VerifyData(stringToBytes(name), new SHA1CryptoServiceProvider(), HexStringToBytes(key));
+        }
+
+        private static byte[] stringToBytes(string name)
+        {
             ASCIIEncoding byteConverter = new ASCIIEncoding();
             byte[] originalData = byteConverter.GetBytes(name);
-
-            return rsp.VerifyData(originalData, new SHA1CryptoServiceProvider(), StringToByteArray(key));
+            return originalData;
         }
 
         RSACryptoServiceProvider rsp;
