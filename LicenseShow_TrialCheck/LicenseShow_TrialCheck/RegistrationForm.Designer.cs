@@ -28,36 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_Register = new System.Windows.Forms.Button();
+            this.btnRegisterHashKey = new System.Windows.Forms.Button();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.textBoxKey = new System.Windows.Forms.TextBox();
             this.lbRegistrationName = new System.Windows.Forms.Label();
             this.lbRegistrationKey = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.btnRegisterRSAKey = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btn_Register
+            // btnRegisterHashKey
             // 
-            this.btn_Register.Location = new System.Drawing.Point(16, 154);
-            this.btn_Register.Name = "btn_Register";
-            this.btn_Register.Size = new System.Drawing.Size(75, 23);
-            this.btn_Register.TabIndex = 0;
-            this.btn_Register.Text = "Register";
-            this.btn_Register.UseVisualStyleBackColor = true;
-            this.btn_Register.Click += new System.EventHandler(this.btn_Register_Click);
+            this.btnRegisterHashKey.Location = new System.Drawing.Point(14, 201);
+            this.btnRegisterHashKey.Name = "btnRegisterHashKey";
+            this.btnRegisterHashKey.Size = new System.Drawing.Size(111, 23);
+            this.btnRegisterHashKey.TabIndex = 0;
+            this.btnRegisterHashKey.Text = "Register Hash Key";
+            this.btnRegisterHashKey.UseVisualStyleBackColor = true;
+            this.btnRegisterHashKey.Click += new System.EventHandler(this.btnRegisterHaskKey_Click);
             // 
             // textBoxName
             // 
             this.textBoxName.Location = new System.Drawing.Point(16, 34);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(256, 20);
+            this.textBoxName.Size = new System.Drawing.Size(375, 20);
             this.textBoxName.TabIndex = 1;
             // 
             // textBoxKey
             // 
             this.textBoxKey.Location = new System.Drawing.Point(16, 89);
+            this.textBoxKey.Multiline = true;
             this.textBoxKey.Name = "textBoxKey";
-            this.textBoxKey.Size = new System.Drawing.Size(256, 20);
+            this.textBoxKey.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxKey.Size = new System.Drawing.Size(375, 96);
             this.textBoxKey.TabIndex = 2;
             // 
             // lbRegistrationName
@@ -81,25 +84,36 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(168, 164);
+            this.linkLabel1.Location = new System.Drawing.Point(276, 206);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(104, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(113, 13);
             this.linkLabel1.TabIndex = 5;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Get Registration Key";
+            this.linkLabel1.Text = "Get Registration Key :)";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // btnRegisterRSAKey
+            // 
+            this.btnRegisterRSAKey.Location = new System.Drawing.Point(141, 201);
+            this.btnRegisterRSAKey.Name = "btnRegisterRSAKey";
+            this.btnRegisterRSAKey.Size = new System.Drawing.Size(129, 23);
+            this.btnRegisterRSAKey.TabIndex = 6;
+            this.btnRegisterRSAKey.Text = "Register RSA Key";
+            this.btnRegisterRSAKey.UseVisualStyleBackColor = true;
+            this.btnRegisterRSAKey.Click += new System.EventHandler(this.btnRegisterRSAKey_Click);
             // 
             // RegistrationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 190);
+            this.ClientSize = new System.Drawing.Size(407, 236);
+            this.Controls.Add(this.btnRegisterRSAKey);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.lbRegistrationKey);
             this.Controls.Add(this.lbRegistrationName);
             this.Controls.Add(this.textBoxKey);
             this.Controls.Add(this.textBoxName);
-            this.Controls.Add(this.btn_Register);
+            this.Controls.Add(this.btnRegisterHashKey);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -114,11 +128,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btn_Register;
+        private System.Windows.Forms.Button btnRegisterHashKey;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.TextBox textBoxKey;
         private System.Windows.Forms.Label lbRegistrationName;
         private System.Windows.Forms.Label lbRegistrationKey;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Button btnRegisterRSAKey;
     }
 }

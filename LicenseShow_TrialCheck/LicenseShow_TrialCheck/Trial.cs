@@ -128,7 +128,7 @@ namespace LicenseShow_TrialCheck
                     byte[] bytes = Convert.FromBase64String(stdVal);
                     stdVal = Encoding.UTF8.GetString(bytes);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     stdVal = String.Empty;
                 }

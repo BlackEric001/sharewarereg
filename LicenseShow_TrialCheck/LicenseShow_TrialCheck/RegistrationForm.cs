@@ -23,16 +23,19 @@ namespace LicenseShow_TrialCheck
             this.linkLabel1.LinkVisited = true;
 
             // Navigate to a URL.
-            System.Diagnostics.Process.Start("http://www.microsoft.com");
+            System.Diagnostics.Process.Start("https://github.com/BlackEric001");
         }
 
-        private void btn_Register_Click(object sender, EventArgs e)
+        private void btnRegisterRSAKey_Click(object sender, EventArgs e)
         {
             string regName = textBoxName.Text;
             string regKey = textBoxKey.Text;
-            if (Registration.keyValid(regName, regKey))
+
+            registration = new RegistrationAsymmetric();
+
+            if (registration.keyValid(regName, regKey))
             {
-                Registration.registerApp(regName, regKey);
+                registration.registerApp(regName, regKey);
                 MessageBox.Show("Program registered. Thank you", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
@@ -41,5 +44,27 @@ namespace LicenseShow_TrialCheck
                 MessageBox.Show("Key Invalid!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void btnRegisterHaskKey_Click(object sender, EventArgs e)
+        {
+            string regName = textBoxName.Text;
+            string regKey = textBoxKey.Text;
+
+            registration = new RegistrationHash();
+
+            if (registration.keyValid(regName, regKey))
+            {
+                registration.registerApp(regName, regKey);
+                MessageBox.Show("Program registered. Thank you", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Key Invalid!", "Attention!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        Registration registration;
+
     }
 }

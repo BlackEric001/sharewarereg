@@ -24,7 +24,9 @@ namespace LicenseShow_TrialCheck
                 licenseShow();   
             }
 
-            if (!Registration.isRegistered()) //если не зарегистрировано, то
+            Registration registration = new RegistrationHash();
+
+            if (!registration.isRegistered()) //если не зарегистрировано, то
             {
                 int daysLeft = 0;
                 if (!Trial.checkTrial(out daysLeft)) //проверяем триал
@@ -35,7 +37,7 @@ namespace LicenseShow_TrialCheck
                 this.Text = AppConst.APP_NAME + ". Trial left " + daysLeft + " day(s). Please register";
                 showRegistrationForm(); //показываем форму регистрации вне зависимости от протухания триала
 
-                if (Registration.isRegistered())
+                if (registration.isRegistered())
                 {
                     enableInterface(); //включаем интерфейс если зарегистрировались
 
