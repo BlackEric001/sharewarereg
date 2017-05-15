@@ -24,9 +24,7 @@ namespace LicenseShow_TrialCheck
                 licenseShow();   
             }
 
-            Registration registration = new RegistrationHash();
-
-            if (!registration.isRegistered()) //если не зарегистрировано, то
+            if (!isRegistered()) //если не зарегистрировано, то
             {
                 int daysLeft = 0;
                 if (!Trial.checkTrial(out daysLeft)) //проверяем триал
@@ -37,7 +35,7 @@ namespace LicenseShow_TrialCheck
                 this.Text = AppConst.APP_NAME + ". Trial left " + daysLeft + " day(s). Please register";
                 showRegistrationForm(); //показываем форму регистрации вне зависимости от протухания триала
 
-                if (registration.isRegistered())
+                if (isRegistered())
                 {
                     enableInterface(); //включаем интерфейс если зарегистрировались
 
@@ -51,6 +49,26 @@ namespace LicenseShow_TrialCheck
             }
         }
 
+        /// <summary>
+        /// If in really application you will know registration type, so you will not need this function
+        /// </summary>
+        /// <returns></returns>
+        private Boolean isRegistered()
+        {
+            Registration reg;
+
+            reg = new RegistrationHash();
+
+            Boolean result = reg.isRegistered();
+
+            if (!result)
+            {
+                reg = new RegistrationAsymmetric();
+                result = reg.isRegistered();
+            }
+
+            return result;
+        }
 
         private void disableInterface()
         {
