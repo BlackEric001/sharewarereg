@@ -15,7 +15,7 @@ namespace LicenseShow_TrialCheck
             return APP_REGISTERED_HASH;
         }
 
-        public static string gKey(string name)
+        private static string gKey(string name)
         {
             name += "$" + name;
 
