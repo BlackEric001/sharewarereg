@@ -1,7 +1,7 @@
 # sharewarereg
 Simple Demo Registration Tool For Shareware Applications
 
-##Folders:
+## Folders:
 
 LicenseShow_TrialCheck - App register demo tool. Accept keys from WPKeyGenerator.
 
