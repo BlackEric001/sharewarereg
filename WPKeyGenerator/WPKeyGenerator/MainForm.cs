@@ -15,10 +15,12 @@ namespace WPKeyGenerator
     public partial class MainForm : Form
     {
         const string ASYMMETRIC = "Asymmetric";
+        const string APP_NAME = "Key Generator 0.1";
 
         public MainForm()
         {
             InitializeComponent();
+            this.Text = APP_NAME;
             pnlButtons.Enabled = false;
             statusLabel.Text = "Выберите тип ключа для продолжения работы";
         }
@@ -159,6 +161,8 @@ namespace WPKeyGenerator
                     {
                         keyGen = new KeyGeneratorAsymmetric(File.ReadAllText(openFileDialog1.FileName));
 
+                        this.Text = String.Format(APP_NAME + " ({0})", openFileDialog1.FileName);
+
                         if ((keyGen as KeyGeneratorAsymmetric).publicOnly)
                             statusLabel.Text = "Загружен только публичный ключ! Генерация ключей не возможна";
                         else
@@ -177,6 +181,7 @@ namespace WPKeyGenerator
             {
                 pnlButtons.Enabled = comboBoxKeyType.Text != String.Empty;
                 keyGen = new KeyGeneratorHash();
+                this.Text = APP_NAME;
                 statusLabel.Text = "Готово";
             }
         }
