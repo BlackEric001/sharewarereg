@@ -1,5 +1,5 @@
 # sharewarereg
-Simple Demo Registration Tool For Shareware Applications
+Simple Demo Registration Tool For Shareware Applications. Some discussion (in Russian): [Простейшая защита десктопной шароварной программы для начинающих](http://rsdn.org/forum/shareware/6784699.flat)
 
 ## Folders:
 
